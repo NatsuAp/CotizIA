@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/field"
 
 import { AuthFormProps } from "./AuthForm"
+import {login} from "@/actions/auth/auth";
 
 const formSchema = z.object({
     email: z.email(
@@ -43,11 +44,15 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
     })
 
     // ============ Sign In ============
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (user_Data: FormValues) => {
         setIsLoading(true)
 
         try {
-            console.log(data)
+            //console.log(data)
+            const res = await login(user_Data)
+            if (res.success){
+
+            }
        } catch (error: unknown) {
     const message =
         error instanceof Error
