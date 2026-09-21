@@ -52,6 +52,8 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
             const res = await login(user_Data)
             if (res.success){
                 window.location.reload()
+            }else{
+                toast.error('Correo o contraseña incorrectos')
             }
        } catch (error: unknown) {
     const message =
