@@ -51,7 +51,7 @@ const SignInForm = ({ setTypeSelected }: AuthFormProps) => {
             //console.log(data)
             const res = await login(user_Data)
             if (res.success){
-
+                window.location.reload()
             }
        } catch (error: unknown) {
     const message =
