@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/field"
 
 import { AuthFormProps } from "./AuthForm"
+import {enviarCorreoRecuperacion} from "@/actions/auth/auth";
 
 const formSchema = z.object({
     email: z
@@ -42,7 +43,12 @@ const RecoverPasswordForm = ({ setTypeSelected }: AuthFormProps) => {
         setIsLoading(true)
 
         try {
-            console.log(user)
+            const res = await enviarCorreoRecuperacion(user);
+
+            if(res.success){
+                toast.success(res.message);
+                setTypeSelected('sign-in');
+            }
         } catch (error: unknown) {
     const message =
         error instanceof Error

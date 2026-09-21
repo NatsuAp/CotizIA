@@ -70,3 +70,58 @@ export async function signup(formData: {
   //revalidatePath('/', 'layout')
   //redirect('/account')
 }
+
+export async function enviarCorreoRecuperacion(formData: {
+    email: string
+}) {
+  const supabase = await createClient()
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+
+  const { error, data } = await supabase.auth.resetPasswordForEmail(formData.email)
+
+  if (error) {
+    //redirect('/error')
+      return {
+          success: false,
+          message: error.message
+      }
+  }
+    return {
+      success: true,
+        message: 'Correo enviado exitosamente, revise su bandeja de entrada',
+        data
+    }
+  //revalidatePath('/', 'layout')
+  //redirect('/account')
+}
+
+export async function actualizarContrasena(formData: {
+    password: string
+}) {
+  const supabase = await createClient()
+
+  // type-casting here for convenience
+  // in practice, you should validate your inputs
+
+  const { error, data } = await supabase.auth.updateUser({
+      password: formData.password,
+      }
+  )
+
+  if (error) {
+    //redirect('/error')
+      return {
+          success: false,
+          message: error.message
+      }
+  }
+    return {
+      success: true,
+        message: 'Contraseña actualizada exitosamente',
+        data
+    }
+  //revalidatePath('/', 'layout')
+  //redirect('/account')
+}

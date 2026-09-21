@@ -24,7 +24,15 @@ export async function GET(request: NextRequest) {
     })
     if (!error) {
       redirectTo.searchParams.delete('next')
-      redirectTo.pathname = '/dashboard'
+      //console.log(type)
+      switch(type){
+        case 'email':
+          redirectTo.pathname = '/dashboard'
+          break;
+        case 'recovery':
+          redirectTo.pathname = '/recuperar-contrasena'
+          break;
+      }
       return NextResponse.redirect(redirectTo)
     }
   }
