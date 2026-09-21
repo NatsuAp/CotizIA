@@ -151,7 +151,7 @@ const UpdatePasswordForm = () => {
             </Button>
 
             <Link
-              href="/profile"
+              href="/"
               className="text-center text-sm text-white mt-3 underline underline-offset-4 hover:text-primary cursor-pointer"
             >
               Volver
