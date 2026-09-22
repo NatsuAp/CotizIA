@@ -37,19 +37,23 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: If you remove getClaims() and you use server-side rendering
   // with the Supabase client, your users may be randomly logged out.
-  //await supabase.auth.getClaims()
-  const user = await getUser();
+  const {data, error} = await supabase.auth.getClaims()
+  console.log('DATA:' + data);
+
+  //const user = await getUser();
   const protectedRoutes = [
     '/dashboard',
-    '/perfil',
-    '/actualizar-contraseña'
+      '/recuperar-contrasena'
   ];
   //si no hay usuario autenticado y esta intentando acceder a rutas protegidas, redirigir al login
-  if (!user && protectedRoutes.includes(request.nextUrl.pathname)){
+  console.log("COOKIES: " + request.cookies.get('password-recovery'));
+  const cookie = request.cookies.get("password-recovery");
+
+  if (!data && protectedRoutes.includes(request.nextUrl.pathname ) || (data === null && protectedRoutes.includes(request.nextUrl.pathname) && cookie === undefined)){
     return NextResponse.redirect(new URL('/', request.url))
   }
   //si el usuario esta autenticado y esta intentando acceder al login redirigir al dashboard
-  if (user && request.nextUrl.pathname === '/'){
+  if (data && request.nextUrl.pathname === '/'){
     return NextResponse.redirect(new URL('/dashboard', request.url))
 
   }

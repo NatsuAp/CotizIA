@@ -18,7 +18,10 @@ export async function POST(req: NextRequest) {
 
   revalidatePath('/', 'layout')
   //return NextResponse.redirect(new URL('/', req.url), {status: 302,})
-  return NextResponse.json({
+
+  const response = NextResponse.json ({
     success:true,
   })
+  response.cookies.delete("password-recovery")
+  return response;
 }

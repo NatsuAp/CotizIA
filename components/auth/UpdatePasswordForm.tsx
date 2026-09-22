@@ -33,9 +33,20 @@ const formSchema = z
 
 type UpdatePasswordFormValues = z.infer<typeof formSchema>
 
+
 const UpdatePasswordForm = () => {
+
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+     const handleSignOut = async () => {
+    await fetch("auth/signout", {
+      method: "POST",
+    })
+    router.replace("/")
+    router.refresh()
+    toast.success("Sesion cerrada exitosamente")
+
+  }
   const form = useForm<UpdatePasswordFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,6 +71,7 @@ const UpdatePasswordForm = () => {
                     throw new Error ("No se pudo cerrar sesion")
                 }
                  toast.success(res.message);
+
                 router.replace("/")
                 router.refresh()
             }catch (error){
@@ -153,6 +165,7 @@ const UpdatePasswordForm = () => {
             <Link
               href="/"
               className="text-center text-sm text-white mt-3 underline underline-offset-4 hover:text-primary cursor-pointer"
+              onClick={handleSignOut}
             >
               Volver
             </Link>
