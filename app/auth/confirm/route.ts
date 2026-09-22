@@ -45,6 +45,8 @@ export async function GET(request: NextRequest) {
     maxAge: 60 * 10,
     path: "/",
   })
+        password_cookies = false
+
       }
       return NextResponse.redirect(redirectTo)
     }else{
